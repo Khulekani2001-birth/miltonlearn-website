@@ -1,28 +1,21 @@
-<?php 
+<?php
+    $name = $_POST['name'];
+    $lastName = $_POST['lastname'];
+    $client_email = $_POST['email'];
+    $message = $_POST['message'];
+    $phone = $_POST['phone'];
 
-    if(isset($_POST['btn-send']))
-    { 
-       $UserName = $_POST['UName'];
-       $Email = $_POST['Email'];
-       $Subject = $_POST['Subject'];
-       $Msg = $_POST['msg'];
+    $email_from = 'milton@miltonlearn.org';
+    $email_subject = 'New Tutor Request';
+    $email_body = "Client Name:  $name  $lastName.\n".
+                  "Client Email: $client_email.\n".
+                  "Client Message: $message.\n";
 
-       if(empty($UserName) || empty($Email) || empty($Subject) || empty($Msg))
-       {
-           header('location:index.php?error');
-       }
-       else
-       {
-           $to = "miltonlearn@gmail.com";
+    $to = "miltonlearn@gmail.com";
+    $headers = "From: $email_from \r\n";
+    $headers .= "Reply-To: $visitor_email \r\n";
 
-           if(mail($to,$Subject,$Msg,$Email))
-           {
-               header("location:index.php?success");
-           }
-       }
-    }
-    else
-    {
-        header("location:index.php");
-    }
+    mail($to, $email_subject, $email_body, $headers);
+
+    header("Location: miltonlearn.org");
 ?>
